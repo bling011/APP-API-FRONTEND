@@ -1,38 +1,461 @@
+/* Base Styles */
 .App {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+  padding: 40px 20px;
+  background-color: #f4f6f9;
+  color: #333;
   min-height: 100vh;
+  transition: all 0.3s ease-in-out;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  justify-content: flex-start;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* Dark Mode Styles */
+.dark {
+  background-color: #121212;
+  color: #f1f1f1;
+}
+
+h1 {
+  margin-bottom: 30px;
+  font-size: 36px;
+  font-weight: 800;
+  color: #333;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.dark h1 {
+  color: #f1c40f;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+}
+
+input[type="text"] {
+  padding: 14px 18px;
+  width: 100%;
+  max-width: 460px;
+  border: 2px solid #b0b0b0;
+  border-radius: 14px;
+  outline: none;
+  font-size: 18px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 20px;
+  background-color: #e0e0e0;
+}
+
+.dark input[type="text"] {
+  background-color: #333;
+  color: #f1c40f;
+  border: 2px solid #888;
+}
+
+input[type="text"]:focus {
+  border-color: #3b8cff;
+  box-shadow: 0 0 12px rgba(59, 140, 255, 0.6);
+}
+
+button {
+  padding: 14px 20px;
+  background: linear-gradient(135deg, #4f6e8c, #3b5d7e);
   color: white;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background 0.4s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  margin-top: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
-.App-link {
-  color: #61dafb;
+button:hover {
+  background: linear-gradient(135deg, #3b5d7e, #2a4a69);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
 }
 
-@keyframes App-logo-spin {
+button:active {
+  transform: translateY(2px);
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  width: 100%;
+  margin-top: 40px;
+}
+
+li {
+  margin: 20px auto;
+  padding: 16px 22px;
+  background: #fff;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s ease;
+  animation: slideIn 0.5s ease-out;
+}
+
+li:hover {
+  transform: scale(1.03);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.dark li {
+  background-color: #2a2a2a;
+  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.15);
+}
+
+li span {
+  flex-grow: 1;
+  margin-left: 15px;
+  text-align: left;
+  font-size: 18px;
+  font-weight: 500;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.dark li span {
+  color: #f1c40f;
+}
+
+li input[type="checkbox"] {
+  transform: scale(1.5);
+  accent-color: #f1c40f;
+}
+
+li .btn-group {
+  display: flex;
+  gap: 12px;
+}
+
+li .edit-btn,
+li .delete-btn {
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-size: 16px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+li .edit-btn {
+  background-color: #27ae60;
+}
+
+li .edit-btn:hover {
+  background-color: #2ecc71;
+  transform: translateY(-2px);
+}
+
+li .delete-btn {
+  background-color: #e74c3c;
+}
+
+li .delete-btn:hover {
+  background-color: #c0392b;
+  transform: translateY(-2px);
+}
+
+.fab {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: linear-gradient(135deg, #4f6e8c, #3b5d7e);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 75px;
+  height: 75px;
+  font-size: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.fab:hover {
+  background: linear-gradient(135deg, #3b5d7e, #2a4a69);
+  transform: scale(1.1);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+
+.fab:active {
+  transform: scale(1);
+}
+
+li.completed span {
+  text-decoration: line-through;
+  color: #777;
+  opacity: 0.8;
+}
+
+.tooltip {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 10;
+}
+
+button:hover .tooltip,
+li .btn-group button:hover .tooltip {
+  opacity: 1;
+}
+
+.toast {
+  position: fixed;
+  bottom: 110px;
+  right: 30px;
+  background-color: #4f6e8c;
+  color: white;
+  padding: 16px 24px;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  animation: fadeIn 0.5s ease forwards;
+  z-index: 1000;
+}
+
+.dark .toast {
+  background-color: #333;
+}
+
+@keyframes fadeIn {
   from {
-    transform: rotate(0deg);
+    opacity: 0;
+    transform: translateY(20px);
   }
   to {
-    transform: rotate(360deg);
+    opacity: 1;
+    transform: translateY(0);
   }
 }
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+  .App {
+    padding: 20px;
+  }
+
+  button, .fab {
+    padding: 12px 18px;
+    font-size: 16px;
+  }
+
+  .fab {
+    width: 65px;
+    height: 65px;
+    font-size: 30px;
+  }
+
+  li {
+    padding: 14px 18px;
+  }
+
+  h1 {
+    font-size: 28px;
+  }
+}
+
+/* Expandable Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -250px;
+  width: 250px;
+  height: 100vh;
+  background: #34495e;
+  transition: transform 0.3s ease-in-out;
+  z-index: 100;
+}
+
+.sidebar.open {
+  transform: translateX(250px);
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 60px;
+}
+
+.sidebar ul li {
+  padding: 20px;
+  color: white;
+  font-size: 18px;
+  border-bottom: 1px solid #2c3e50;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.sidebar ul li:hover {
+  background: #2c3e50;
+}
+
+.sidebar ul li.active {
+  background: #f1c40f;
+}
+
+.sidebar .close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+}
+
+/* Dropdown menus */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+/* Tooltips */
+.tooltip {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 10;
+}
+
+button:hover .tooltip,
+li .btn-group button:hover .tooltip {
+  opacity: 1;
+}
+
+/* Floating Action Button */
+.fab {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: linear-gradient(135deg, #4f6e8c, #3b5d7e);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 75px;
+  height: 75px;
+  font-size: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.fab:hover {
+  background: linear-gradient(135deg, #3b5d7e, #2a4a69);
+  transform: scale(1.1);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+
+.fab:active {
+  transform: scale(1);
+}
+
+/* Form Fields with Advanced Styling */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.form-group input[type="text"], 
+.form-group select, 
+.form-group textarea {
+  padding: 12px;
+  border-radius: 8px;
+  border: 2px solid #b0b0b0;
+  font-size: 16px;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.form-group input[type="text"]:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #3b8cff;
+  box-shadow: 0 0 8px rgba(59, 140, 255, 0.5);
+}
+
+.form-group textarea {
+  min-height: 100px;
+}
+
+.form-group .error-message {
+  font-size: 14px;
+  color: #e74c3c;
+  margin-top: 8px;
+}
+
