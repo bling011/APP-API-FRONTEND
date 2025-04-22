@@ -1,9 +1,10 @@
+// App.js
 import './App.css';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-// Set the backend API URL (Replace with your deployed backend URL)
-const API_URL = 'https://your-backend-url.onrender.com';  // Replace with your actual backend URL
+// Replace with your actual deployed backend URL
+const API_URL = 'https://your-backend-url.onrender.com';
 
 export const fetchTodos = () => axios.get(`${API_URL}/items/`);
 export const createTodo = (todo) => axios.post(`${API_URL}/items/`, todo);
@@ -27,7 +28,7 @@ function App() {
     try {
       const res = await fetchTodos();
       setTodos(res.data);
-      setError(null);  // Reset error state if successful
+      setError(null);
     } catch (error) {
       console.error('Error fetching todos:', error);
       setError('Failed to load todos. Please try again later.');
@@ -36,7 +37,6 @@ function App() {
 
   const handleAddTodo = async () => {
     if (newTodo.trim() === '') return;
-
     try {
       await createTodo({ name: newTodo, description: '', done: false });
       setNewTodo('');
@@ -79,7 +79,12 @@ function App() {
     if (editingText.trim() === '') return;
 
     try {
-      await updateTodo(id, { name: editingText });
+      const original = todos.find((t) => t.id === id);
+      await updateTodo(id, {
+        name: editingText,
+        description: original.description,
+        done: original.done,
+      });
       setEditingId(null);
       setEditingText('');
       loadTodos();
@@ -132,14 +137,9 @@ function App() {
                 type="text"
                 value={editingText}
                 onChange={(e) => setEditingText(e.target.value)}
-                style={{ marginLeft: 10, flexGrow: 1 }}
               />
             ) : (
-              <span
-                style={{
-                  textDecoration: todo.done ? 'line-through' : 'none',
-                }}
-              >
+              <span style={{ textDecoration: todo.done ? 'line-through' : 'none' }}>
                 {todo.name}
               </span>
             )}
