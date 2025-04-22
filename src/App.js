@@ -2,9 +2,10 @@
 import './App.css';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { fetchTodos, createTodo, updateTodo, deleteTodo } from './api';
 
 // Replace with your actual deployed backend URL
-const API_URL = 'https://your-backend-url.onrender.com';
+const API_URL = 'https://app-api-backend.onrender.com';
 
 export const fetchTodos = () => axios.get(`${API_URL}/items/`);
 export const createTodo = (todo) => axios.post(`${API_URL}/items/`, todo);
