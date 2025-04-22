@@ -1,10 +1,9 @@
-// App.js
 import './App.css';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-// Define the functions directly in App.js
-const API_URL = 'https://app-api-backend.onrender.com';
+// Use environment variable for API URL
+const API_URL = process.env.REACT_APP_API_URL;
 
 export const fetchTodos = () => axios.get(`${API_URL}/items/`);
 export const createTodo = (todo) => axios.post(`${API_URL}/items/`, todo);
