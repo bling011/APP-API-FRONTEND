@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 // Set the backend API URL
-const API_URL = 'https://your-fastapi-backend.onrender.com';  // Replace with your Render API URL
+const API_URL = 'https://app-api-backend.onrender.com';  // Replace with your Render API URL
 
 export const fetchTodos = () => axios.get(`${API_URL}/items/`);
 export const createTodo = (todo) => axios.post(`${API_URL}/items/`, todo);
