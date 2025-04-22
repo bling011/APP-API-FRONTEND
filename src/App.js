@@ -1,11 +1,14 @@
 import './App.css';
 import React, { useEffect, useState } from 'react';
-import {
-  fetchTodos,
-  createTodo,
-  updateTodo,
-  deleteTodo
-} from './api';
+import axios from 'axios';
+
+// Set the backend API URL
+const API_URL = 'https://your-fastapi-backend.onrender.com';  // Replace with your Render API URL
+
+export const fetchTodos = () => axios.get(`${API_URL}/items/`);
+export const createTodo = (todo) => axios.post(`${API_URL}/items/`, todo);
+export const updateTodo = (id, todo) => axios.put(`${API_URL}/items/${id}`, todo);
+export const deleteTodo = (id) => axios.delete(`${API_URL}/items/${id}`);
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -32,7 +35,7 @@ function App() {
     if (newTodo.trim() === '') return;
 
     try {
-      await createTodo({ title: newTodo });
+      await createTodo({ name: newTodo, description: '', done: false });
       setNewTodo('');
       loadTodos();
     } catch (error) {
@@ -53,7 +56,7 @@ function App() {
     try {
       await updateTodo(todo.id, {
         ...todo,
-        completed: !todo.completed,
+        done: !todo.done,
       });
       loadTodos();
     } catch (error) {
@@ -63,14 +66,14 @@ function App() {
 
   const handleEdit = (todo) => {
     setEditingId(todo.id);
-    setEditingText(todo.title);
+    setEditingText(todo.name);
   };
 
   const handleSaveEdit = async (id) => {
     if (editingText.trim() === '') return;
 
     try {
-      await updateTodo(id, { title: editingText });
+      await updateTodo(id, { name: editingText });
       setEditingId(null);
       setEditingText('');
       loadTodos();
@@ -80,8 +83,8 @@ function App() {
   };
 
   const filteredTodos = todos.filter((todo) => {
-    if (filter === 'completed') return todo.completed;
-    if (filter === 'pending') return !todo.completed;
+    if (filter === 'completed') return todo.done;
+    if (filter === 'pending') return !todo.done;
     return true;
   });
 
@@ -112,7 +115,7 @@ function App() {
           <li key={todo.id}>
             <input
               type="checkbox"
-              checked={todo.completed}
+              checked={todo.done}
               onChange={() => handleToggleComplete(todo)}
             />
             {editingId === todo.id ? (
@@ -125,10 +128,10 @@ function App() {
             ) : (
               <span
                 style={{
-                  textDecoration: todo.completed ? 'line-through' : 'none',
+                  textDecoration: todo.done ? 'line-through' : 'none',
                 }}
               >
-                {todo.title}
+                {todo.name}
               </span>
             )}
             <div className="btn-group">
