@@ -17,6 +17,7 @@ function App() {
   const [editingText, setEditingText] = useState('');
   const [darkMode, setDarkMode] = useState(false);
   const [filter, setFilter] = useState('all');
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     loadTodos();
@@ -26,8 +27,10 @@ function App() {
     try {
       const res = await fetchTodos();
       setTodos(res.data);
+      setError(null);  // Reset error state if successful
     } catch (error) {
       console.error('Error fetching todos:', error);
+      setError('Failed to load todos. Please try again later.');
     }
   };
 
@@ -40,6 +43,7 @@ function App() {
       loadTodos();
     } catch (error) {
       console.error('Error adding todo:', error);
+      setError('Failed to add todo. Please try again.');
     }
   };
 
@@ -49,6 +53,7 @@ function App() {
       loadTodos();
     } catch (error) {
       console.error('Error deleting todo:', error);
+      setError('Failed to delete todo. Please try again.');
     }
   };
 
@@ -61,6 +66,7 @@ function App() {
       loadTodos();
     } catch (error) {
       console.error('Error updating todo:', error);
+      setError('Failed to update todo. Please try again.');
     }
   };
 
@@ -79,6 +85,7 @@ function App() {
       loadTodos();
     } catch (error) {
       console.error('Error saving todo:', error);
+      setError('Failed to save changes. Please try again.');
     }
   };
 
@@ -95,6 +102,8 @@ function App() {
       </button>
 
       <h1>TODO LIST</h1>
+
+      {error && <p className="error">{error}</p>}
 
       <input
         type="text"
