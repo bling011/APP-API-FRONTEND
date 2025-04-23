@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 
-const API_URL = 'http://localhost:8000/todos';
+const API_URL = 'https://app-api-backend.onrender.com';
 
 function App() {
   const [tasks, setTasks] = useState([]);
